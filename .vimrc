@@ -72,9 +72,30 @@ let maplocalleader = "\\"
 let g:plug_window = 'topleft new'
 
 call plug#begin()
+
 if s:is_windows
-  let $PATH .= ";C:/Program Files/Git/mingw32/bin"
+  " Add some UNIX-y tools to PATH
+  let $PATH .= ';C:/Program Files/Git/mingw32/bin'
 endif
+
+" If vim-plug isn't loaded, download and source it
+" This is expected to run only the first time VIM is run after a new OS install
+if !exists(':Plug')
+  let s:plug_git = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  " On Windows, put the 'autoload/' directory in same directory as .vimrc
+  " Otherwise, put it in the home directory under '.vim/'
+  let s:plug_script = s:is_windows
+        \ ? $MYVIMHOME . '\autoload\plug.vim'
+        \ : '~/.vim/autoload/plug.vim'
+
+  !curl -Lo 's:plug_script' --create-dirs s:plug_git
+  source s:plug_script
+  PlugInstall
+
+  unlet s:plug_git
+  unlet s:plug_script
+endif
+
 " GENERIC TOOLS:
 Plug 'junegunn/vim-plug' " Included here so that the help file is installed
 Plug 'tpope/vim-sensible'
@@ -202,7 +223,7 @@ call plug#end()
 
 augroup filetype_vim
   autocmd!
-  autocmd FileType vim setlocal shiftwidth=2
+  autocmd FileType vim setlocal shiftwidth=2 expandtab
 augroup END
 
 if has('vim_starting')
