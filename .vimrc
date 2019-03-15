@@ -69,32 +69,37 @@ let mapleader = ","
 let maplocalleader = "\\"
 
 
-let g:plug_window = 'topleft new'
-
-call plug#begin()
-
 if s:is_windows
   " Add some UNIX-y tools to PATH
   let $PATH .= ';C:/Program Files/Git/mingw32/bin'
 endif
 
-" If vim-plug isn't loaded, download and source it
-" This is expected to run only the first time VIM is run after a new OS install
-if !exists(':Plug')
-  let s:plug_git = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  " On Windows, put the 'autoload/' directory in same directory as .vimrc
-  " Otherwise, put it in the home directory under '.vim/'
-  let s:plug_script = s:is_windows
-        \ ? $MYVIMHOME . '\autoload\plug.vim'
-        \ : '~/.vim/autoload/plug.vim'
+" Define script location for "vim-plug"
+" - On Windows, we'll put the 'autoload/' directory alongside .vimrc
+" - Otherwise, we'll put it in the home directory, under '.vim/'
+let s:plug_script = s:is_windows
+      \ ? $MYVIMHOME . '\autoload\plug.vim'
+      \ : '/home/' . $USER . '/.vim/autoload/plug.vim'
 
-  !curl -Lo 's:plug_script' --create-dirs s:plug_git
-  source s:plug_script
-  PlugInstall
-
-  unlet s:plug_git
+if filereadable(s:plug_script)
+  " vim-plug is already installed, nothing to see here...
   unlet s:plug_script
+else
+  let s:plug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+  " If vim-plug isn't loaded, download and source it. This is expected to run
+  " only the first time VIM is run after a new OS install.
+  execute 'silent !curl --create-dirs -Lo "' . s:plug_script . '" ' . s:plug_url
+  execute 'source ' . s:plug_script
+
+  unlet s:plug_url
+  unlet s:plug_script
+  let s:is_fresh_plug_install = 1
 endif
+
+let g:plug_window = 'topleft new'
+
+call plug#begin()
 
 " GENERIC TOOLS:
 Plug 'junegunn/vim-plug' " Included here so that the help file is installed
@@ -220,6 +225,11 @@ call plug#end()
 " Might use one of these for Python at some point (linked from Syntastic README):
 " https://github.com/davidhalter/jedi-vim
 " https://github.com/python-mode/python-mode
+
+if exists('s:is_fresh_plug_install')
+  PlugInstall
+  unlet s:is_fresh_plug_install
+endif
 
 augroup filetype_vim
   autocmd!
