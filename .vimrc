@@ -77,7 +77,7 @@ endif
 " Define script location for "vim-plug"
 " - On Windows, we'll put the 'autoload/' directory alongside .vimrc
 " - Otherwise, we'll put it in the home directory, under '.vim/'
-let s:plug_script = s:is_windows
+let s:plug_script = s:is_windows || s:is_cygwin
       \ ? $MYVIMHOME . '\autoload\plug.vim'
       \ : '/home/' . $USER . '/.vim/autoload/plug.vim'
 
