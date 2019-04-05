@@ -316,27 +316,25 @@ setglobal guioptions-=T " Don't display toolbar
 setglobal guioptions+=c " Use console dialogues instead of popup dialogues
 " erLc
 
-" TODO Put this inside `if has('vim_starting')`
-if s:is_windows
-  " TODO can I set this relative to vimfiles so that this setting is portable?
-  " "//" => use filepath in swp file
-  setglobal directory^=d:\\vimfiles\\z-swapfiles//
-  " TODO Test whether this works
-  " TODO Consider replacing the value instead of prepending it
-  " setglobal directory^=$MYVIMHOME\\z-swapfiles//
-  " let g:directory = $MYVIMHOME . "/z-swapfiles//," . g:directory
-  " execute "setglobal directory^=" . $MYVIMHOME . "/z-swapfiles//"
-else
-  " TODO Create this directory, since vim won't automatically create it
-  " https://stackoverflow.com/questions/1549263/how-can-i-create-a-folder-if-it-doesnt-exist-from-vimrc/8462159
-  setglobal directory^=~/.vim/z-swapfiles//
-endif
-
-
 if has('vim_starting')
   if !has("unix")
     setglobal guioptions-=a " Disable autoselect; it's only useful on unix
   endif
+
+  " Set swapfile directory
+  let s:swapfile_dir = '~/.swapfiles'
+  execute 'setglobal directory^=' . s:swapfile_dir . '//'
+
+  " Create the swapfile directory if it doesn't exist
+  if !isdirectory(expand(s:swapfile_dir))
+    if exists('*mkdir')
+      " Reference: https://stackoverflow.com/questions/1549263/how-can-i-create-a-folder-if-it-doesnt-exist-from-vimrc/8462159
+      call mkdir(expand(s:swapfile_dir), 'p', 0700)
+    else
+      echomsg "Vim can't make directories. Please create: " . s:swapfile_dir
+    endif
+  endif
+  unlet s:swapfile_dir
 
   setglobal mouse=a "enable the mouse when running via terminal
   setglobal cryptmethod=blowfish2
