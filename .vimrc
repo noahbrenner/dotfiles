@@ -79,12 +79,12 @@ endif
 " - Otherwise, we'll put it in the home directory, under '.vim/'
 let s:plug_script = s:is_windows || s:is_cygwin
       \ ? $MYVIMHOME . '\autoload\plug.vim'
-      \ : '/home/' . $USER . '/.vim/autoload/plug.vim'
+      \ : $MYVIMHOME . '/.vim/autoload/plug.vim'
 
 if filereadable(s:plug_script)
   " vim-plug is already installed, nothing to see here...
   unlet s:plug_script
-else
+elseif $USER !=# 'root'
   let s:plug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
   " If vim-plug isn't loaded, download and source it. This is expected to run
