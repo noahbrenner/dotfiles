@@ -341,9 +341,8 @@ if has('vim_starting')
   setglobal backupcopy=yes " https://github.com/parcel-bundler/parcel/issues/221
   "setglobal selection=old "TODO find out why this was exclusive. Check :behave command.
   colorscheme pablo
-  " TODO only for desktop (windows?)
-  highlight Special guifg=#9060ff
-  highlight LineNr guifg=#dd0000 guibg=#333333
+  highlight Special guifg=#2222ff
+  highlight LineNr guifg=Red guibg=#202020
   setglobal conceallevel=2
   setglobal fileformats=unix,dos,mac
   setglobal softtabstop=-1 " Use the value of shiftwidth
