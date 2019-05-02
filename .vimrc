@@ -37,9 +37,10 @@ if s:is_gui && has('vim_starting')
 
     let l:posy = getwinposy() " get y position potentially adjusted by resizing
 
-    " Use full screen width in diff mode
-    if &diff
+    " Use full screen width when diffing *multiple* files
+    if &diff && argc() > 1
       setglobal columns=999
+
     " Otherwise, set columns based on screen width
     elseif &columns < 160
       setglobal columns=80
@@ -380,6 +381,32 @@ if s:is_windows
   " setglobal guifont=Hack:h8
 else
   setglobal guifont=DejaVu\ Sans\ Mono\ 9  " 10 ~= Terminus:h11, 8 ~= Terminus:h9
+endif
+
+" Display `git diff` output if vim is started as `gvimdiff` with no arguments
+if has('vim_starting') && s:is_gui && &diff && argc() ==# 0
+  function! s:init_git_diff()
+    " Reduce font size so we can see more lines at a time
+    let &guifont = s:is_windows
+          \ ? 'Dina:h7'
+          \ : 'DejaVu Sans Mono 7'
+
+    " Use the full screen height again, now that we've reduced the font size
+    setglobal lines=999
+
+    " Adjust highlighting
+    diffoff
+    setlocal filetype=diff
+
+    " Set the filename so that it's easier to identify this Vim window
+    file DIFF
+
+    " Replace buffer contents with diff output. The (empty) content of the
+    " buffer is passed to git's stdin, but git doesn't care.
+    silent %!git diff
+  endfunction
+
+  autocmd VimEnter * call s:setwinsize() | call s:init_git_diff()
 endif
 
 nnoremap <Leader>ev :split $MYVIMRC<cr>
