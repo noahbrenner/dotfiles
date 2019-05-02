@@ -115,6 +115,7 @@ Plug 'nathanaelkane/vim-indent-guides'
   let g:indent_guides_guide_size = 1
 
 " SYNTAX HIGHLIGHTING AND BEHAVIOR:
+Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'glench/vim-jinja2-syntax', {'for': ['jinja.html', 'jinja']} " Also for Nunjucks
 Plug 'gisraptor/vim-lilypond-integrator', {'for': 'lilypond'}
