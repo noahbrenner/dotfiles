@@ -514,9 +514,9 @@ augroup extension_ntxt
   autocmd BufNewFile,BufReadPre,BufFilePre *.ntxt setlocal noswapfile noundofile nobackup
   autocmd BufNewFile,BufReadPre,BufFilePre *.ntxt filetype indent off
   autocmd BufNewFile,BufReadPre,BufFilePre *.ntxt nnoremap ZZ <nop>
-  autocmd BufNewFile,BufReadPre,BufFilePre *.ntxt nmap gx }k"+yiW<c-o>$<Plug>NetrwBrowseX
-  autocmd BufNewFile,BufReadPre,BufFilePre *.ntxt nnoremap Y "+yiW
-  autocmd BufUnload *.ntxt if @+ is# @" | let @+ = '' | endif
+  autocmd BufNewFile,BufReadPre,BufFilePre *.ntxt nmap gx }k"*yiW<c-o>$<Plug>NetrwBrowseX
+  autocmd BufNewFile,BufReadPre,BufFilePre *.ntxt nnoremap Y "*yiW
+  autocmd BufUnload *.ntxt if @* is# @" | let @* = '' | endif
 augroup END
 
 augroup filetype_pandoc
