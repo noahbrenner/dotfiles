@@ -151,6 +151,7 @@ Plug 'HerringtonDarkholme/yats.vim', {'for': ['typescript', 'typescript.tsx']}
 
 " SYNTAX CHECKERS:
 " TODO: Decide if I want to load syntastic (or ale) only for gvim
+let g:ale_completion_enabled = 1
 Plug 'w0rp/ale'
   let g:ale_linters = {
 	\ 'javascript': [],
