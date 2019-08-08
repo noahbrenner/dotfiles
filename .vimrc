@@ -421,9 +421,9 @@ nnoremap <Leader>sv :source $MYVIMRC \| doautocmd FileType<cr>
 nnoremap <leader>el :execute getline(".")<cr>
 " Switch Windows:
 nnoremap <Leader>j <c-w>j
-nnoremap <Leader><Leader>j <c-w>j:resize<cr>
+nnoremap <silent> <Leader><Leader>j <c-w>j:resize<cr>
 nnoremap <Leader>k <c-w>k
-nnoremap <Leader><Leader>k <c-w>k:resize<cr>
+nnoremap <silent> <Leader><Leader>k <c-w>k:resize<cr>
 nnoremap <Leader>h <c-w>h
 nnoremap <Leader>l <c-w>l
 " Go To Beginning Or End Of Line:
