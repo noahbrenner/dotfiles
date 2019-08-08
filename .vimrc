@@ -399,7 +399,11 @@ if has('vim_starting') && s:is_gui && &diff && argc() ==# 0
     diffoff
     setlocal filetype=diff
 
-    " Set the filename so that it's easier to identify this Vim window
+    " Prevent accidental writing of the file
+    setlocal buftype=nofile
+    setlocal noswapfile
+
+    " Set the filename so that the window is easier to identify
     file DIFF
 
     " Replace buffer contents with diff output. The (empty) content of the
