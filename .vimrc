@@ -480,7 +480,7 @@ augroup filetype_javascript
   autocmd FileType javascript,typescript nnoremap <buffer> <LocalLeader>c I// <esc>
   autocmd FileType javascript,typescript nnoremap <buffer> <LocalLeader>C :s,// ,, \| noh<cr>
   autocmd FileType javascript,typescript vnoremap <expr> <buffer> <LocalLeader>c mode() is# "v"
-	\ ? "<esc>`>a*/<esc>`<i/*<esc>"
+	\ ? "<esc>`>a */<esc>`<i/* <esc>"
   	\ : "<esc>`>o*/<esc>`<O/*<esc>"
 augroup END
 
