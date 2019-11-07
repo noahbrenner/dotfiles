@@ -543,9 +543,11 @@ augroup END
 augroup filetype_python
   autocmd!
   autocmd FileType python setlocal shiftwidth=4 expandtab number
-  autocmd FileType python let &columns = 80 + &numberwidth
+  if s:is_gui
+    autocmd FileType python let &columns = 80 + &numberwidth
+  endif
   autocmd FileType python nnoremap <buffer> <silent> <LocalLeader>r
-	\ :below terminal python %<cr>
+	\ :below terminal python3 %<cr>
   autocmd FileType python nnoremap <buffer> <LocalLeader>c I# <esc>
   autocmd FileType python nnoremap <buffer> <LocalLeader>C :s/# // \| noh<cr>
   autocmd FileType python vnoremap <buffer> <LocalLeader>c :s/\s*\zs\ze/# / \| noh<cr>
