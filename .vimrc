@@ -537,7 +537,7 @@ augroup END
 
 augroup filetype_lilypond
   autocmd!
-  autocmd FileType lilypond setlocal noshowmatch
+  autocmd FileType lilypond setlocal noshowmatch expandtab
 augroup END
 
 augroup filetype_python
