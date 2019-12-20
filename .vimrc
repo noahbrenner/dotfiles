@@ -187,7 +187,9 @@ Plug 'w0rp/ale'
   augroup END
 
   " Configure status line format
-  let &g:statusline = "%<%f\ " " Path to file, truncated on the left if needed
+  let &g:statusline = "%q" " [Quickfix List], [Location List] or empty
+  let &g:statusline .= "%w" " Preview window flag [Preview]
+  let &g:statusline .= "%<%f\ " " Path to file, truncated on the left if needed
   let &g:statusline .= "%h%m%r" " Help, modified, and readonly flags
   " let &g:statusline .= "\ %#warningmsg#" " Switch highlighting
   " let &g:statusline .= "%{SyntasticStatuslineFlag()}" " Show Syntastic info
@@ -361,6 +363,7 @@ if has('vim_starting')
   setglobal softtabstop=-1 " Use the value of shiftwidth
   setglobal ignorecase
   setglobal smartcase
+  setglobal showcmd
   " These are local options, but we set global as well to affect windows opened later
   set linebreak
   set breakindent
