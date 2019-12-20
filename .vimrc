@@ -458,6 +458,15 @@ augroup filetype_autohotkey
   autocmd FileType autohotkey setlocal expandtab shiftwidth=4
 augroup END
 
+" These must be set before a FileType autocmd would fire,
+" so we'll just set them unconditionally
+let g:is_bash=1
+let g:sh_fold_enabled=5 " Fold: functions (1), if/do/for blocks (4)
+augroup filetype_bash
+  autocmd!
+  autocmd FileType sh setlocal foldmethod=syntax
+augroup END
+
 augroup filetype_gitcommit
   autocmd!
   autocmd FileType gitcommit setlocal spell textwidth=72 formatoptions-=l
@@ -487,6 +496,7 @@ augroup filetype_javascript
   "autocmd Filetype javascript setlocal cinoptions+=:0 "switch, case
   autocmd FileType javascript,typescript setlocal shiftwidth=4 expandtab number
   autocmd FileType javascript,typescript setlocal indentkeys+=0?,0<:>,0.
+  autocmd FileType javascript,typescript setlocal foldmethod=syntax
   autocmd FileType javascript,typescript nnoremap <buffer> <LocalLeader>c I// <esc>
   autocmd FileType javascript,typescript nnoremap <buffer> <LocalLeader>C :s,// ,, \| noh<cr>
   autocmd FileType javascript,typescript vnoremap <expr> <buffer> <LocalLeader>c mode() is# "v"
@@ -508,7 +518,7 @@ augroup END
 
 augroup filetype_css
   autocmd!
-  autocmd FileType css,scss setlocal shiftwidth=2
+  autocmd FileType css,scss setlocal expandtab shiftwidth=2 foldmarker={,}
   autocmd FileType css,scss nnoremap <buffer> <LocalLeader>c I/*<esc>A*/<esc>
   autocmd FileType css,scss nnoremap <buffer> <LocalLeader>C :s,/\*\(.*\)\*/,\1,e \| noh<cr>
   autocmd FileType css,scss inoremap <buffer> { {<cr>}<esc>O
