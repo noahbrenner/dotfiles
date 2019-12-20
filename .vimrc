@@ -328,6 +328,10 @@ nnoremap <silent><Leader>pp :silent py from subprocess import Popen; Popen(["pan
 setglobal whichwrap+=[,] " Arrow keys wrap around lines in insert and replace modes
 setglobal cpoptions+=J " A sentence object ends with 2 spaces
 
+" If I want to mark eol at some point, here are some good options: $ ¬ ⏎▸
+" Set by vim-sensible: listchars=tab:> ,trail:-,extends:>,precedes:<,nbsp:+
+setglobal listchars=tab:├─,trail:·,nbsp:⎵,extends:>,precedes:<
+set list " 'list' is local, but we also set it globally to work for new windows
 
 if has('vim_starting')
   " Set swapfile directory
