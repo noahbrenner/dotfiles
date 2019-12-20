@@ -370,8 +370,11 @@ if has('vim_starting')
   let &showbreak = '> '
   set foldmethod=marker
 
+  " TODO Could look into NerdTree or https://github.com/justinmk/vim-dirvish
+  let g:netrw_banner = 0 " Hide banner
+  let g:netrw_fastbrowse = 0 " https://github.com/tpope/vim-vinegar/issues/13
   let g:netrw_liststyle = 3 " Tree view
-  let g:netrw_banner = 0
+  let g:netrw_winsize = 30 " This is a percentage of the available space
 endif
 
 if !s:is_gui
