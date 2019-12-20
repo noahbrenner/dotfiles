@@ -26,6 +26,22 @@ let s:is_gui = has('gui_running') || strlen(&term) is 0 || &term is? 'builtin_gu
 let s:is_cygwin = has('win32unix') || has('win64unix')
 let s:is_windows = has('win32') || has('win64')
 
+if s:is_gui
+  setglobal guioptions+=c " Use console dialogues instead of popup dialogues
+
+  " This must be set before running `:syntax on` or `:fileype on`
+  setglobal guioptions+=M " Don't source "$VIMRUNTIME/menu.vim"
+
+  setglobal guioptions-=m " Don't display menu
+  setglobal guioptions-=g " Don't grey menu items (irrelevant)
+  setglobal guioptions-=t " Don't use tearoff menues (irrelevant)
+  setglobal guioptions-=T " Don't display toolbar
+  setglobal guioptions-=r " Don't always show right-hand scrollbar
+  setglobal guioptions-=L " Don't show left-hand scrollbar when there's a vertical split
+  " Windows: ecM
+  " Linux:   aeicM
+endif
+
 " set window size when starting GUI
 if s:is_gui && has('vim_starting')
   " define the function that does the work
@@ -312,18 +328,8 @@ nnoremap <silent><Leader>pp :silent py from subprocess import Popen; Popen(["pan
 setglobal whichwrap+=[,] " Arrow keys wrap around lines in insert and replace modes
 setglobal cpoptions+=J " A sentence object ends with 2 spaces
 
-setglobal guioptions-=m " Don't display menu
-setglobal guioptions-=g " Don't grey menu items (irrelevant)
-setglobal guioptions-=t " Don't use tearoff menues (irrelevant)
-setglobal guioptions-=T " Don't display toolbar
-setglobal guioptions+=c " Use console dialogues instead of popup dialogues
-" erLc
 
 if has('vim_starting')
-  if !has("unix")
-    setglobal guioptions-=a " Disable autoselect; it's only useful on unix
-  endif
-
   " Set swapfile directory
   let s:swapfile_dir = '~/.swapfiles'
   execute 'setglobal directory^=' . s:swapfile_dir . '//'
