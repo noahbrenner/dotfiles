@@ -131,8 +131,8 @@ Plug 'briancollins/vim-jst', {'for': ['*.jst', 'jst.*', 'jst']} " .ejs
     " TODO This might only work when .vimrc is in the default location. If I
     " find that to be true, remove the ternary expression, just using '&ft'.
     autocmd! BufRead,BufNewFile *.ejs.* let &filetype = &filetype
-	  \ ? 'jst.' . &filetype
-	  \ : 'jst.' . expand('%:e')
+          \ ? 'jst.' . &filetype
+          \ : 'jst.' . expand('%:e')
     " Otherwise, we'll use the preceding extention as the filetype (not perfect)
     autocmd! BufRead,BufNewFile *.*.ejs let &filetype = 'jst.' . expand('%:r:e')
   augroup END
@@ -154,10 +154,10 @@ Plug 'HerringtonDarkholme/yats.vim', {'for': ['typescript', 'typescript.tsx']}
 let g:ale_completion_enabled = 1
 Plug 'w0rp/ale'
   let g:ale_linters = {
-	\ 'javascript': [],
-	\ 'markdown': [],
-	\ 'python': ['pycodestyle']
-	\ }
+        \ 'javascript': [],
+        \ 'markdown': [],
+        \ 'python': ['pycodestyle']
+        \ }
 
   " Define key mappings
   nmap <silent> <c-k> <plug>(ale_previous_wrap)
@@ -184,9 +184,9 @@ Plug 'w0rp/ale'
 " Plug 'vim-syntastic/syntastic'
 "   " Default checking options
 "   let g:syntastic_mode_map = {
-" 	\ "mode": "passive",
-" 	\ "active_filetypes": ['html', 'python'],
-" 	\ "passive_filetypes": []}
+"         \ "mode": "passive",
+"         \ "active_filetypes": ['html', 'python'],
+"         \ "passive_filetypes": []}
 "   " Define key mappings
 "   function! ToggleSyntasticSkipChecks()
 "     let b:syntastic_skip_checks = !get(b:, 'syntastic_skip_checks', 0)
@@ -480,8 +480,8 @@ augroup filetype_javascript
   autocmd FileType javascript,typescript nnoremap <buffer> <LocalLeader>c I// <esc>
   autocmd FileType javascript,typescript nnoremap <buffer> <LocalLeader>C :s,// ,, \| noh<cr>
   autocmd FileType javascript,typescript vnoremap <expr> <buffer> <LocalLeader>c mode() is# "v"
-	\ ? "<esc>`>a */<esc>`<i/* <esc>"
-  	\ : "<esc>`>o*/<esc>`<O/*<esc>"
+        \ ? "<esc>`>a */<esc>`<i/* <esc>"
+        \ : "<esc>`>o*/<esc>`<O/*<esc>"
 augroup END
 
 augroup extension_njk " For Nunjucks templates, which use the same syntax as Jinja2
@@ -547,7 +547,7 @@ augroup filetype_python
     autocmd FileType python let &columns = 80 + &numberwidth
   endif
   autocmd FileType python nnoremap <buffer> <silent> <LocalLeader>r
-	\ :below terminal python3 %<cr>
+        \ :below terminal python3 %<cr>
   autocmd FileType python nnoremap <buffer> <LocalLeader>c I# <esc>
   autocmd FileType python nnoremap <buffer> <LocalLeader>C :s/# // \| noh<cr>
   autocmd FileType python vnoremap <buffer> <LocalLeader>c :s/\s*\zs\ze/# / \| noh<cr>
@@ -593,7 +593,7 @@ inoremap <Leader>'' ”
 inoremap <Leader>` ‘
 inoremap <Leader>' ’
 
-"nnoremap \w	:%s/^\s*// \| noh \| echo        "Delete indentation"<cr>
+"nnoremap \w :%s/^\s*// \| noh \| echo        "Delete indentation"<cr>
 nnoremap <silent> <LocalLeader>s :pydo return line.strip()<cr>
 
 " Yank All Into Clipboard: and remove final newline from yanked text
