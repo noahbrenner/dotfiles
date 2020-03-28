@@ -175,6 +175,9 @@ Plug 'w0rp/ale'
         \ 'python': ['pycodestyle']
         \ }
 
+  " Configure message formats
+  let g:ale_echo_msg_format = "[%linter%] %code: %%s"
+
   " Define key mappings
   nmap <silent> <c-k> <plug>(ale_previous_wrap)
   nmap <silent> <c-j> <plug>(ale_next_wrap)
