@@ -598,8 +598,7 @@ augroup END
 
 augroup filetype_txt
   autocmd!
-  autocmd BufNew,BufRead *.txt setlocal spell
-  autocmd Syntax help setlocal nospell
+  autocmd FileType text setlocal spell
 augroup END
 
 augroup filetype_yaml
