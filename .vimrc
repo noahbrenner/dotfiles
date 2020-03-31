@@ -166,7 +166,6 @@ Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'HerringtonDarkholme/yats.vim', {'for': ['typescript', 'typescript.tsx']}
 
 " SYNTAX CHECKERS:
-" TODO: Decide if I want to load syntastic (or ale) only for gvim
 let g:ale_completion_enabled = 1
 Plug 'w0rp/ale'
   let g:ale_linters = {
@@ -194,55 +193,10 @@ Plug 'w0rp/ale'
   let &g:statusline .= "%w" " Preview window flag [Preview]
   let &g:statusline .= "%<%f\ " " Path to file, truncated on the left if needed
   let &g:statusline .= "%h%m%r" " Help, modified, and readonly flags
-  " let &g:statusline .= "\ %#warningmsg#" " Switch highlighting
-  " let &g:statusline .= "%{SyntasticStatuslineFlag()}" " Show Syntastic info
-  " let &g:statusline .= "%*" " Reset highlighting to default
   let &g:statusline .= "%=" " Separation between left- and right-aligned items
   " Note: %c = column number in bytes; %v = virtual column number
   let &g:statusline .= "%-8.(%l,%c%)" " Left-justify line & col number w/ minwidth of 8
   let &g:statusline .= "\ %P" " Percentage through file (or Top/Bot/All)
-
-" Plug 'vim-syntastic/syntastic'
-"   " Default checking options
-"   let g:syntastic_mode_map = {
-"         \ "mode": "passive",
-"         \ "active_filetypes": ['html', 'python'],
-"         \ "passive_filetypes": []}
-"   " Define key mappings
-"   function! ToggleSyntasticSkipChecks()
-"     let b:syntastic_skip_checks = !get(b:, 'syntastic_skip_checks', 0)
-"     SyntasticReset
-"     echo "Syntax checking for this buffer is:" (b:syntastic_skip_checks ? "off" : "on")
-"   endfunction
-"   nnoremap <Leader><Leader>`l :call ToggleSyntasticSkipChecks()<cr>
-"   nnoremap <Leader>`l :SyntasticCheck<cr>
-"   " let g:syntastic_always_populate_loc_list = 1
-"   let g:syntastic_auto_loc_list = 1
-"   let g:syntastic_check_on_open = 0
-"   let g:syntastic_check_on_wq = 0
-" 
-" " JavaScript
-" Plug 'sindresorhus/vim-xo', {'for': 'javascript'}
-"   let g:syntastic_javascript_checkers = ['xo']
-"   let g:syntastic_javascript_xo_lint_args = '--space=4'
-"   let g:syntastic_javascript_xo_args = '--space=4'
-"   " let g:syntastic_javascript_eslint_generic = 1
-"   " let g:syntastic_javascript_checkers = ['eslint']
-" 
-" " Python
-"   let g:syntastic_python_checkers = ['pycodestyle']
-" 
-" " HTML
-"   let g:syntastic_html_checkers = ['htmlhint']
-" 
-"   " let g:syntastic_html_checkers = ['validator', 'w3']
-" 
-"   " let g:syntastic_html_checkers = ['validator']
-"   " let g:syntastic_html_validator_exec =  "C:\\Program Files\\Git\\mingw32\\bin\\curl.exe"
-"   " let g:syntastic_html_validator_parser =  "html5"
-" 
-"   " let g:syntastic_html_checkers = ['w3']
-"   " let g:syntastic_html_w3_exec =  "C:/Program Files/Git/mingw32/bin/curl.exe"
 
 call plug#end()
 
