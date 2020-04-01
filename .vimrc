@@ -412,6 +412,11 @@ nnoremap <s-space> zA
 inoremap jk <esc>
 nnoremap - ddp
 nnoremap _ ddkP
+nnoremap <silent> `l :setlocal list!<cr>
+
+" Easier completion mappings
+inoremap <m-o> <c-x><c-o>
+inoremap <c-f> <c-x><c-f>
 
 " Completely clear the content saved in a named register
 command! -nargs=1 ClearRegister call setreg('<args>', [])
@@ -559,10 +564,6 @@ augroup filetype_yaml
   autocmd!
   autocmd FileType yaml setlocal expandtab shiftwidth=2
 augroup END
-
-nnoremap <Leader><Leader>rs
-      \ :edit $HOME/Desktop/Txt/RS songs.txt \|
-      \ split $HOME/Desktop/Txt/RS abilities.txt \| resize<cr><cr>
 
 " Word To Upper Case:
 inoremap <Leader>u <esc>gUiwea
