@@ -1,5 +1,4 @@
 setglobal nocompatible
-"source $VIMRUNTIME/mswin.vim
 
 " TODO Check whether bufname(1) ends with .git/COMMIT_EDITMSG and exit early if so
 " echom "Filetype at startup:" bufname(1)
@@ -21,7 +20,7 @@ endfunction
 
 let $MYVIMHOME=fnameescape(expand('<sfile>:p:h'))
 
-"alternates from: https://github.com/justinmk/config/blob/master/.vimrc
+" Alternates from: https://github.com/justinmk/config/blob/master/.vimrc
 let s:is_gui = has('gui_running') || strlen(&term) is 0 || &term is? 'builtin_gui'
 let s:is_cygwin = has('win32unix') || has('win64unix')
 let s:is_windows = has('win32') || has('win64')
@@ -42,16 +41,16 @@ if s:is_gui
   " Linux:   aeicM
 endif
 
-" set window size when starting GUI
+" Set window size when starting GUI
 if s:is_gui && has('vim_starting')
-  " define the function that does the work
+  " Define the function that does the resizing
   function! s:setwinsize()
-    let l:posx = getwinposx() " get x position before resizing
+    let l:posx = getwinposx() " Get x position before resizing
 
-    setglobal lines=999 " use full screen height
-    setglobal columns=999 " start with full screen width
+    setglobal lines=999 " Use full screen height
+    setglobal columns=999 " Start with full screen width
 
-    let l:posy = getwinposy() " get y position potentially adjusted by resizing
+    let l:posy = getwinposy() " Get y position potentially adjusted by resizing
 
     " Use full screen width when diffing *multiple* files
     if &diff && argc() > 1
@@ -66,17 +65,17 @@ if s:is_gui && has('vim_starting')
       let &columns = &columns / 2
     endif
 
-    " put the window back where the windowing system first put it (horizontally)
+    " Put the window back where the windowing system first put it (horizontally)
     execute "winpos" l:posx l:posy
   endfunction
 
   " TODO Always call the function immediately; On Linux, set lines=99 in autocmd
-  " call the function
+  " Call and/or schedule calling the function
   if s:is_windows
     " Windows can run this right away and avoid a flash of the large window size
     call s:setwinsize()
   else
-    " run at GUIEnter so that &columns will be limited by screen size
+    " Run at GUIEnter so that &columns will be limited by screen size
     autocmd GUIEnter * call s:setwinsize()
   endif
 endif
@@ -140,6 +139,8 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'vim-pandoc/vim-pandoc', {'for': 'pandoc'}
 Plug 'vim-pandoc/vim-pandoc-syntax', {'for': 'pandoc'}
 Plug 'digitaltoad/vim-pug', {'for': 'pug'}
+
+" TODO Validate HTML - https://stackoverflow.com/questions/5237275/how-can-i-validate-html5-directly-in-vim
 
 "Plug 'nikvdp/ejs-syntax', {'for': ['html.ejs', 'ejs']}
 Plug 'briancollins/vim-jst', {'for': ['*.jst', 'jst.*', 'jst']} " .ejs
@@ -219,7 +220,7 @@ if has('vim_starting')
   " Set this only when starting up so matches aren't shown again when reloading .vimrc
   setglobal hlsearch
 
-  "Jump to last known cursor position when opening a file. - from vimrc_example.vim
+  " Jump to last known cursor position when opening a file (from vimrc_example.vim)
   autocmd BufReadPost *
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
     \   execute "normal! g`\"" |
@@ -257,28 +258,28 @@ endfunction
 
 nnoremap <LocalLeader>b :call Beautify()<cr>
 
-"Vim_Pandoc Configuration:
-let g:pandoc#filetypes#pandoc_markdown = 0 "Don't use pandoc for all markdown extensions
-let g:pandoc#formatting#equalprg = "" "Don't change default indenting
-let g:pandoc#keyboard#use_default_mappings = 0 "Disable key mappings
+" Vim_Pandoc Configuration:
+let g:pandoc#filetypes#pandoc_markdown = 0 " Don't use pandoc for all markdown extensions
+let g:pandoc#formatting#equalprg = "" " Don't change default indenting
+let g:pandoc#keyboard#use_default_mappings = 0 " Disable key mappings
 let g:pandoc#syntax#conceal#blacklist = [
-      \"image",
-      \"subscript",
-      \"superscript",
-      \"codeblock_start",
-      \"codeblock_delim",
-      \"definition",
-      \"list",
-      \]
+      \ "image",
+      \ "subscript",
+      \ "superscript",
+      \ "codeblock_start",
+      \ "codeblock_delim",
+      \ "definition",
+      \ "list",
+      \ ]
       "\"newline",
 let g:pandoc#syntax#conceal#cchar_overrides = {
-      \"newline": " ",
-      \"image": "i",
-      \}
+      \ "newline": " ",
+      \ "image": "i",
+      \ }
 let g:pandoc#syntax#codeblocks#embeds#langs = [
-      \"python",
-      \"javascript",
-      \]
+      \ "python",
+      \ "javascript",
+      \ ]
 
 " Pandoc Markdown To HTML:
 nnoremap <silent> <Leader>pd :silent Spawn! pandoc % -o %:r".html" --from markdown+link_attributes-auto_identifiers --to html5 --standalone --smart<cr>
@@ -309,7 +310,7 @@ if has('vim_starting')
   endif
   unlet s:swapfile_dir
 
-  setglobal mouse=a "enable the mouse when running via terminal
+  setglobal mouse=a " Enable the mouse when running via terminal
   setglobal cryptmethod=blowfish2
   setglobal backupcopy=yes " https://github.com/parcel-bundler/parcel/issues/221
   "setglobal selection=old "TODO find out why this was exclusive. Check :behave command.
@@ -344,7 +345,7 @@ if !s:is_gui
 endif
 
 " TODO make function(s) to change fonts/sizes
-"setglobal guifont=Courier_New:h9 "the font used for :hardcopy (but different size)
+"setglobal guifont=Courier_New:h9 " The font used for :hardcopy (but different size)
 "setglobal guifont=Dina:h9:cANSI
 " Small: Dina:h6 (best so far), DejaVu_Sans_Mono:w4:h7
 if s:is_windows
@@ -389,10 +390,11 @@ if has('vim_starting') && s:is_gui && &diff && argc() ==# 0
   autocmd VimEnter * call s:setwinsize() | call s:init_git_diff()
 endif
 
+" Edit VIMRC:
 nnoremap <Leader>ev :split $MYVIMRC<cr>
 nnoremap <Leader><Leader>ev :tabedit $MYVIMRC<cr>
 nnoremap <Leader>sv :source $MYVIMRC \| doautocmd FileType<cr>
-" Execute Current Line: "good for ex commands like: !pandoc %:p
+" Execute Current Line: " Good for ex commands like: !pandoc %:p
 nnoremap <leader>el :execute getline(".")<cr>
 " Switch Windows:
 nnoremap <Leader>j <c-w>j
