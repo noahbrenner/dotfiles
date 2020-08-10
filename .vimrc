@@ -488,7 +488,7 @@ augroup END
 
 augroup filetype_markdown
   autocmd!
-  autocmd FileType markdown setlocal shiftwidth=4 expandtab
+  autocmd FileType markdown setlocal shiftwidth=4 expandtab spell
 augroup END
 
 augroup extension_ntxt
@@ -549,6 +549,7 @@ augroup END
 augroup filetype_txt
   autocmd!
   autocmd FileType text setlocal spell
+  autocmd FileType help setlocal nospell " Fix edge case, since help files are .txt
 augroup END
 
 augroup filetype_yaml
