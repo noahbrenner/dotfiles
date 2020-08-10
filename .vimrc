@@ -331,6 +331,9 @@ if has('vim_starting')
   let &showbreak = '> '
   set foldmethod=marker
 
+  " Enable use of :Man command
+  runtime ftplugin/man.vim
+
   " TODO Could look into NerdTree or https://github.com/justinmk/vim-dirvish
   let g:netrw_banner = 0 " Hide banner
   let g:netrw_fastbrowse = 0 " https://github.com/tpope/vim-vinegar/issues/13
@@ -495,6 +498,11 @@ augroup filetype_css
   autocmd FileType css,scss nnoremap <buffer> <LocalLeader>c I/*<esc>A*/<esc>
   autocmd FileType css,scss nnoremap <buffer> <LocalLeader>C :s,/\*\(.*\)\*/,\1,e \| noh<cr>
   autocmd FileType css,scss inoremap <buffer> { {<cr>}<esc>O
+augroup END
+
+augroup filetype_man
+  autocmd!
+  autocmd FileType man setlocal nolist
 augroup END
 
 augroup filetype_markdown
