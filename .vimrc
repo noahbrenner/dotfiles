@@ -445,7 +445,7 @@ augroup END
 
 augroup filetype_gitcommit
   autocmd!
-  autocmd FileType gitcommit setlocal spell textwidth=72 formatoptions-=l
+  autocmd FileType gitcommit setlocal spell textwidth=72 colorcolumn=+1 formatoptions-=l
   " Don't know why I need this, but commits stopped highlighting and this fixes it (2018)
   " TODO figure out why this is needed, hopefully remove it or put it under "if Windows:"
   autocmd FileType gitcommit hi SpellBad cterm=underline
@@ -543,10 +543,7 @@ augroup END
 
 augroup filetype_python
   autocmd!
-  autocmd FileType python setlocal shiftwidth=4 expandtab number
-  if s:is_gui
-    autocmd FileType python let &columns = 80 + &numberwidth
-  endif
+  autocmd FileType python setlocal shiftwidth=4 expandtab number colorcolumn=80
   autocmd FileType python nnoremap <buffer> <silent> <LocalLeader>r
         \ :below terminal python3 %<cr>
   autocmd FileType python nnoremap <buffer> <LocalLeader>c I# <esc>
