@@ -122,6 +122,8 @@ Plug 'junegunn/vim-plug' " Included here so that the help file is installed
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-characterize' " Show more character info with `ga`
 Plug 'editorconfig/editorconfig-vim'
+  " Ignore contents of .git/ directories
+  let g:EditorConfig_exclude_patterns = ['.*[\\/]\.git[\\/].*']
 " TODO https://github.com/tpope/vim-eunuch " Convenient shell wrappers like :Rename
 Plug 'tpope/vim-dispatch'
 
@@ -155,11 +157,9 @@ Plug 'briancollins/vim-jst', {'for': ['*.jst', 'jst.*', 'jst']} " .ejs
     autocmd! BufRead,BufNewFile *.*.ejs let &filetype = 'jst.' . expand('%:r:e')
   augroup END
 
-Plug 'mxw/vim-jsx', {'for': 'javascript.jsx'}
-  let g:jsx_ext_required = 1 " Don't treat .js files as JSX
+Plug 'maxmellon/vim-jsx-pretty'
 
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-  let g:vim_markdown_conceal = 0
   let g:vim_markdown_folding_style_pythonic = 1
   let g:vim_markdown_frontmatter = 1
   let g:vim_markdown_toc_autofit = 1
