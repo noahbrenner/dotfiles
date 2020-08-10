@@ -173,7 +173,16 @@ Plug 'w0rp/ale'
   let g:ale_linters = {
         \ 'javascript': [],
         \ 'markdown': [],
-        \ 'python': ['pycodestyle']
+        \ 'python': ['pycodestyle', 'flake8'],
+        \ }
+  let g:ale_fixers = {
+        \ 'css': ['prettier'],
+        \ 'html': ['prettier'],
+        \ 'javascript': ['prettier'],
+        \ 'json': ['prettier'],
+        \ 'markdown': ['prettier'],
+        \ 'typescript': ['prettier'],
+        \ 'typescriptreact': ['prettier'],
         \ }
 
   " Configure message formats
@@ -182,13 +191,6 @@ Plug 'w0rp/ale'
   " Define key mappings
   nmap <silent> <c-k> <plug>(ale_previous_wrap)
   nmap <silent> <c-j> <plug>(ale_next_wrap)
-
-  " Disable ale in diff mode
-  augroup NoAle
-    autocmd!
-    autocmd VimEnter * if &diff | ALEDisable | endif
-    autocmd OptionSet diff ALEDisableBuffer
-  augroup END
 
   " Configure status line format
   let &g:statusline = "%q" " [Quickfix List], [Location List] or empty
