@@ -5,19 +5,6 @@ setglobal nocompatible
 " finish
 " Also take a look at: https://til.hashrocket.com/posts/c265634512-vim-startup-time-profiling
 
-" Temporary function to fix a bunch of Python files that have awful formatting
-function! FixPython()
-  set tabstop=4
-  retab
-  %s/\v[ ]+$//e  " Remove trailing spaces
-  %s/[:,]\zs\ze[^ ]/ /ge " Commas and colons are followed by spaces (or newlines)
-  %s/#\zs\ze[^ ]/ /e  " Comments start with a space
-  %s/\vprint\zs (.*)/(\1)/e  " Use print as a function
-  %s/[ ]\ze[:,]//ge  " Remove spaces before colons and commas
-  %s/"/'/ge  " Use single quotes
-  %s/\v%(\(.{-})@<=[ ]?\=[ ]?/=/ge  " Remove spaces around `=` in function parameters
-endfunction
-
 let $MYVIMHOME=fnameescape(expand('<sfile>:p:h'))
 
 " Alternates from: https://github.com/justinmk/config/blob/master/.vimrc
@@ -282,10 +269,6 @@ let g:pandoc#syntax#codeblocks#embeds#langs = [
       \ "python",
       \ "javascript",
       \ ]
-
-" Pandoc Markdown To HTML:
-nnoremap <silent> <Leader>pd :silent Spawn! pandoc % -o %:r".html" --from markdown+link_attributes-auto_identifiers --to html5 --standalone --smart<cr>
-nnoremap <silent><Leader>pp :silent py from subprocess import Popen; Popen(["pandoc", "-o", "test.html", "-s", "-f", "markdown-auto_identifiers", "-t", "html5", "test.pdc"])<cr>
 
 "syntax on
 setglobal whichwrap+=[,] " Arrow keys wrap around lines in insert and replace modes
@@ -585,9 +568,6 @@ inoremap <Leader>`` “
 inoremap <Leader>'' ”
 inoremap <Leader>` ‘
 inoremap <Leader>' ’
-
-"nnoremap \w :%s/^\s*// \| noh \| echo        "Delete indentation"<cr>
-nnoremap <silent> <LocalLeader>s :pydo return line.strip()<cr>
 
 " Yank All Into Clipboard: and remove final newline from yanked text
 nnoremap <Leader>ya :%yank+ \| let @+ = strpart(@+, 0, strlen(@+) - 1)<cr>
