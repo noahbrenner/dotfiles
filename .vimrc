@@ -302,6 +302,7 @@ if has('vim_starting')
   colorscheme pablo
   highlight Special guifg=#2222ff
   highlight LineNr guifg=Red guibg=#202020
+  highlight SpellBad ctermbg=darkred
   setglobal conceallevel=2
   setglobal fileformats=unix,dos,mac
   setglobal softtabstop=-1 " Use the value of shiftwidth
@@ -429,9 +430,6 @@ augroup END
 augroup filetype_gitcommit
   autocmd!
   autocmd FileType gitcommit setlocal spell textwidth=72 colorcolumn=+1 formatoptions-=l
-  " Don't know why I need this, but commits stopped highlighting and this fixes it (2018)
-  " TODO figure out why this is needed, hopefully remove it or put it under "if Windows:"
-  autocmd FileType gitcommit hi SpellBad cterm=underline
 augroup END
 
 augroup filetype_html
