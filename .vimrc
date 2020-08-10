@@ -129,6 +129,26 @@ Plug 'vim-pandoc/vim-pandoc', {'for': 'pandoc'}
 Plug 'vim-pandoc/vim-pandoc-syntax', {'for': 'pandoc'}
 Plug 'digitaltoad/vim-pug', {'for': 'pug'}
 
+Plug 'mattn/emmet-vim' " Expand abbreviations (mainly HTML)
+  let g:emmet_install_only_plug = 1 " Don't create default keymappings
+  if s:is_gui
+    nmap <c-space> <plug>(emmet-expand-abbr)
+    imap <c-space> <plug>(emmet-expand-abbr)
+  else
+    " These mean the same as above, but they work in the terminal
+    nmap <c-@> <plug>(emmet-expand-abbr)
+    imap <c-@> <plug>(emmet-expand-abbr)
+  endif
+  nmap <Leader><c-n> <plug>(emmet-move-next)
+  imap <Leader><c-n> <plug>(emmet-move-next)
+  nmap <Leader><c-p> <plug>(emmet-move-prev)
+  imap <Leader><c-p> <plug>(emmet-move-prev)
+  " TODO: Put these in an autocmd? (html/js/jsx/tsx/md/etc.)
+  nmap <Leader>is <plug>(emmet-image-size)
+  imap <Leader>is <plug>(emmet-image-size)
+  nmap <Leader>a <plug>(emmet-anchorize-url)
+  imap <Leader>a <plug>(emmet-anchorize-url)
+
 " TODO Validate HTML - https://stackoverflow.com/questions/5237275/how-can-i-validate-html5-directly-in-vim
 
 "Plug 'nikvdp/ejs-syntax', {'for': ['html.ejs', 'ejs']}
