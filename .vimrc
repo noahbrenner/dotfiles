@@ -319,10 +319,16 @@ if has('vim_starting')
   setglobal cryptmethod=blowfish2
   setglobal backupcopy=yes " https://github.com/parcel-bundler/parcel/issues/221
   "setglobal selection=old "TODO find out why this was exclusive. Check :behave command.
+
   colorscheme pablo
-  highlight Special guifg=#2222ff
+  highlight Folded ctermfg=LightCyan ctermbg=DarkBlue guibg=#333333
   highlight LineNr guifg=Red guibg=#202020
-  highlight SpellBad ctermbg=darkred
+  highlight Special guifg=#2222ff
+  highlight SpellBad ctermbg=DarkRed
+  " Switch the default coloring for active vs. inactive status lines
+  highlight StatusLine ctermfg=NONE ctermbg=NONE cterm=reverse
+  highlight StatusLineNC cterm=NONE ctermfg=11 ctermbg=12
+
   setglobal conceallevel=2
   setglobal fileformats=unix,dos,mac
   setglobal softtabstop=-1 " Use the value of shiftwidth
@@ -343,14 +349,6 @@ if has('vim_starting')
   let g:netrw_fastbrowse = 0 " https://github.com/tpope/vim-vinegar/issues/13
   let g:netrw_liststyle = 3 " Tree view
   let g:netrw_winsize = 30 " This is a percentage of the available space
-endif
-
-if !s:is_gui
-  augroup vim_enter
-    autocmd!
-    " TODO Find a better way to see the statusline that still identifies current window
-    autocmd VimEnter * highlight StatusLine cterm=reverse
-  augroup END
 endif
 
 " TODO make function(s) to change fonts/sizes
