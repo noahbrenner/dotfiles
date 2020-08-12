@@ -466,10 +466,7 @@ augroup END
 
 augroup filetype_javascript
   autocmd!
-  " I'm not sure cinoptions had any effect
-  "autocmd Filetype javascript setlocal cinoptions=+2s "continuation lines
-  "autocmd Filetype javascript setlocal cinoptions+=:0 "switch, case
-  autocmd FileType javascript,typescript setlocal shiftwidth=4 expandtab number
+  autocmd FileType javascript,typescript setlocal shiftwidth=2 expandtab number
   autocmd FileType javascript,typescript setlocal indentkeys+=0?,0<:>,0.
   autocmd FileType javascript,typescript setlocal foldmethod=syntax
   autocmd FileType javascript,typescript nnoremap <buffer> <LocalLeader>c I// <esc>
