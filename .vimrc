@@ -220,11 +220,6 @@ if exists('s:is_fresh_plug_install')
   unlet s:is_fresh_plug_install
 endif
 
-augroup filetype_vim
-  autocmd!
-  autocmd FileType vim setlocal shiftwidth=2 expandtab
-augroup END
-
 if has('vim_starting')
   " Set this only when starting up so matches aren't shown again when reloading .vimrc
   setglobal hlsearch
@@ -565,6 +560,12 @@ augroup filetype_txt
   autocmd!
   autocmd FileType text setlocal spell
   autocmd FileType help setlocal nospell " Fix edge case, since help files are .txt
+augroup END
+
+let g:vimsyn_folding='af'
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal shiftwidth=2 expandtab foldmethod=syntax
 augroup END
 
 augroup filetype_yaml
