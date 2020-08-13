@@ -426,9 +426,51 @@ inoremap <c-f> <c-x><c-f>
 " Completely clear the content saved in a named register
 command! -nargs=1 ClearRegister call setreg('<args>', [])
 
-augroup filetype_autohotkey
+augroup filetype_common_settings
   autocmd!
-  autocmd FileType autohotkey setlocal expandtab shiftwidth=4
+
+  " Helper function
+  function! s:exec_for_filetypes(command, filetypes)
+    if index(a:filetypes, &filetype) >= 0
+      execute a:command
+    endif
+  endfunction
+
+  " Define and set options based on filetype
+  function! s:set_common_options()
+    let l:indent_2 = [
+          \ 'css',
+          \ 'html',
+          \ 'javascript',
+          \ 'json',
+          \ 'pug',
+          \ 'tex',
+          \ 'typescript',
+          \ 'typescriptreact',
+          \ 'vim',
+          \ 'yaml',
+          \ ]
+
+    let l:indent_4 = [
+          \ 'autohotkey',
+          \ 'markdown',
+          \ 'pandoc',
+          \ 'python',
+          \ ]
+
+    let l:spell = [
+          \ 'gitcommit',
+          \ 'markdown',
+          \ 'pandoc',
+          \ ]
+
+    call s:exec_for_filetypes('setlocal shiftwidth=2 expandtab', l:indent_2)
+    call s:exec_for_filetypes('setlocal shiftwidth=4 expandtab', l:indent_4)
+    call s:exec_for_filetypes('setlocal spell', l:spell)
+  endfunction
+
+  " Register a catch-all autocommand
+  autocmd FileType * call s:set_common_options()
 augroup END
 
 " These must be set before a FileType autocmd would fire,
@@ -442,12 +484,12 @@ augroup END
 
 augroup filetype_gitcommit
   autocmd!
-  autocmd FileType gitcommit setlocal spell textwidth=72 colorcolumn=+1 formatoptions-=l
+  autocmd FileType gitcommit setlocal colorcolumn=+1 formatoptions-=l
 augroup END
 
 augroup filetype_html
   autocmd!
-  autocmd FileType html setlocal foldmethod=indent foldlevel=99 shiftwidth=2 expandtab
+  autocmd FileType html setlocal foldmethod=indent foldlevel=99
   autocmd FileType html nnoremap <buffer> <LocalLeader>c I<!-- <esc>A --><esc>
   autocmd FileType html vnoremap <buffer> <LocalLeader>c <esc>`>a --><esc>`<i<!-- <esc>
   autocmd FileType html nnoremap <buffer> <LocalLeader>C :s/<!-- \(.*\) -->/\1/e \| noh<cr>
@@ -461,9 +503,8 @@ augroup END
 
 augroup filetype_javascript
   autocmd!
-  autocmd FileType javascript,typescript setlocal shiftwidth=2 expandtab number
   autocmd FileType javascript,typescript setlocal indentkeys+=0?,0<:>,0.
-  autocmd FileType javascript,typescript setlocal foldmethod=syntax
+  autocmd FileType javascript,typescript setlocal number foldmethod=syntax
   autocmd FileType javascript,typescript nnoremap <buffer> <LocalLeader>c I// <esc>
   autocmd FileType javascript,typescript nnoremap <buffer> <LocalLeader>C :s,// ,, \| noh<cr>
   autocmd FileType javascript,typescript vnoremap <expr> <buffer> <LocalLeader>c mode() is# "v"
@@ -478,14 +519,12 @@ augroup END
 
 augroup filetype_json
   autocmd!
-  autocmd FileType json setlocal shiftwidth=4 expandtab number conceallevel=0
-  autocmd FileType json setlocal foldmethod=syntax foldlevel=99
-  autocmd BufReadPost package.json setlocal shiftwidth=2
+  autocmd FileType json setlocal number conceallevel=0 foldmethod=syntax foldlevel=99
 augroup END
 
 augroup filetype_css
   autocmd!
-  autocmd FileType css,scss setlocal expandtab shiftwidth=2 foldmarker={,}
+  autocmd FileType css,scss setlocal foldmarker={,}
   autocmd FileType css,scss nnoremap <buffer> <LocalLeader>c I/*<esc>A*/<esc>
   autocmd FileType css,scss nnoremap <buffer> <LocalLeader>C :s,/\*\(.*\)\*/,\1,e \| noh<cr>
   autocmd FileType css,scss inoremap <buffer> { {<cr>}<esc>O
@@ -494,11 +533,6 @@ augroup END
 augroup filetype_man
   autocmd!
   autocmd FileType man setlocal nolist
-augroup END
-
-augroup filetype_markdown
-  autocmd!
-  autocmd FileType markdown setlocal shiftwidth=4 expandtab spell
 augroup END
 
 augroup extension_ntxt
@@ -512,19 +546,9 @@ augroup extension_ntxt
   autocmd BufUnload *.ntxt if @* is# @" | let @* = '' | endif
 augroup END
 
-augroup filetype_pandoc
-  autocmd!
-  autocmd FileType pandoc setlocal shiftwidth=4 expandtab
-augroup END
-
-augroup filetype_pug
-  autocmd!
-  autocmd FileType pug setlocal shiftwidth=2 expandtab
-augroup END
-
 augroup extension_mkd
   autocmd!
-  autocmd BufNewFile,BufReadPost,BufFilePost *.mkd setlocal filetype=pandoc shiftwidth=2 expandtab
+  autocmd BufNewFile,BufReadPost,BufFilePost *.mkd setlocal filetype=pandoc
 augroup END
 
 augroup filetype_lilypond
@@ -534,7 +558,7 @@ augroup END
 
 augroup filetype_python
   autocmd!
-  autocmd FileType python setlocal shiftwidth=4 expandtab number colorcolumn=80
+  autocmd FileType python setlocal number colorcolumn=80
   autocmd FileType python nnoremap <buffer> <silent> <LocalLeader>r
         \ :below terminal python3 %<cr>
   autocmd FileType python nnoremap <buffer> <LocalLeader>c I# <esc>
@@ -551,7 +575,6 @@ augroup filetype_tex
     ALELint " Run linters again
   endfunction
 
-  autocmd FileType tex setlocal shiftwidth=2 expandtab
   autocmd FileType tex let b:ale_linters_ignore = [] " Leave all enabled initially
   autocmd FileType tex nnoremap <buffer> <LocalLeader>` :call ToggleLacheck()<cr>
 augroup END
@@ -565,12 +588,7 @@ augroup END
 let g:vimsyn_folding='af'
 augroup filetype_vim
   autocmd!
-  autocmd FileType vim setlocal shiftwidth=2 expandtab foldmethod=syntax
-augroup END
-
-augroup filetype_yaml
-  autocmd!
-  autocmd FileType yaml setlocal expandtab shiftwidth=2
+  autocmd FileType vim setlocal foldmethod=syntax
 augroup END
 
 " Word To Upper Case:
