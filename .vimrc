@@ -324,9 +324,7 @@ if has('vim_starting')
   highlight StatusLine ctermfg=NONE ctermbg=NONE cterm=reverse
   highlight StatusLineNC cterm=NONE ctermfg=11 ctermbg=12
 
-  setglobal conceallevel=2
   setglobal fileformats=unix,dos,mac
-  setglobal softtabstop=-1 " Use the value of shiftwidth
   setglobal ignorecase
   setglobal smartcase
   setglobal showcmd
@@ -335,6 +333,7 @@ if has('vim_starting')
   set breakindent
   let &showbreak = '> '
   set foldmethod=marker
+  set conceallevel=2
 
   " Enable use of :Man command
   runtime ftplugin/man.vim
