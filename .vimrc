@@ -245,7 +245,7 @@ let python_highlight_all = 1
 function! Beautify()
   if count(['html', 'css', 'javascript', 'json'], &filetype)
     let type = count(['javascript', 'json'], &filetype) ? 'js' : &filetype
-    let indent = &filetype is# 'javascript' ? 4 : 2
+    let indent = 2
     execute "%! js-beautify --indent-size" indent "--type" type
 
   elseif &filetype is# 'diff'
