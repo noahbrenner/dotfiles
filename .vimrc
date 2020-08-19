@@ -24,8 +24,9 @@ if s:is_gui
   setglobal guioptions-=T " Don't display toolbar
   setglobal guioptions-=r " Don't always show right-hand scrollbar
   setglobal guioptions-=L " Don't show left-hand scrollbar when there's a vertical split
-  " Windows: ecM
-  " Linux:   aeicM
+  setglobal guioptions-=e " Use text-based (instead of gui-based) tab line
+  " Windows: cM
+  " Linux:   aicM
 endif
 
 " Set window size when starting GUI
