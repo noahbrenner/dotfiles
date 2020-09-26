@@ -179,7 +179,7 @@ Plug 'HerringtonDarkholme/yats.vim', {'for': ['typescript', 'typescript.tsx']}
 let g:ale_completion_enabled = 1
 Plug 'w0rp/ale'
   let g:ale_linters = {
-        \ 'javascript': [],
+        \ 'javascript': ['eslint'],
         \ 'markdown': [],
         \ 'python': ['pycodestyle', 'flake8'],
         \ }
