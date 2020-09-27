@@ -241,26 +241,43 @@ let g:SimpleJsIndenter_BriefMode = 1 " Only indent 1 shiftwidth at a time
 "let python_version_2 = 1
 let python_highlight_all = 1
 
-" Beautify Messy Files:
-function! Beautify()
-  if count(['html', 'css', 'javascript', 'json'], &filetype)
-    let type = count(['javascript', 'json'], &filetype) ? 'js' : &filetype
-    let indent = 2
-    execute "%! js-beautify --indent-size" indent "--type" type
+" Run Prettier: (relies on file extension, so the file must have a name)
+function! Prettier()
+  %! prettier --stdin-filepath %
+endfunction
 
-  elseif &filetype is# 'diff'
-    " Shorten headings for each diffed file to show only one line. Includes the file name.
+" Beautify Messy Files: (relies on 'filetype', falls back to Prettier)
+" pro: Faster than Prettier() & less likely to throw for malformed files
+" con: More simplistic formatting than Prettier() for html/css/js
+function! Beautify()
+  let l:js_beautify_filetype =
+        \ count(["html", "xml", "svg"], &filetype) ? "html" :
+        \ count(["css", "scss"], &filetype) ? "css" :
+        \ count(["javascript", "json"], &filetype) ? "js" :
+        \ ""
+
+  " html/css/js (ish) files
+  if !empty("l:js_beautify_filetype")
+    execute "%! js-beautify --indent-size 2 --type" l:js_beautify_filetype
+
+  " diff-format files
+  elseif &filetype ==# "diff"
+    " Shorten each diffed file's heading to 1 line (includes the file name)
     %s/\v^diff --git \zsa\/(.*) b\/.*%(\n.*){3}/\1/
     " Set cursor to start of file and highlight diffed filenames
     call cursor(1, 1)
-    let @/ = '^diff.\{-}\zs[^/ ]*$'
+    let @/ = "^diff.\{-}\zs[^/ ]*$"
     redraw
 
+  " Fall back to Prettier for files that js-beautify can't handle
   else
-    echo "No beautify settings for file type:" &filetype
+    " This can fail (malformed content, unsupported filetype, no filename) and
+    " replace content with an error message, but it's easy to just hit undo
+    call Prettier()
   endif
 endfunction
 
+nnoremap <LocalLeader>p :call Prettier()<cr>
 nnoremap <LocalLeader>b :call Beautify()<cr>
 
 " Vim_Pandoc Configuration:
