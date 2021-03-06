@@ -135,6 +135,7 @@ Plug 'mattn/emmet-vim' " Expand abbreviations (mainly HTML)
   if s:is_gui
     nmap <c-space> <plug>(emmet-expand-abbr)
     imap <c-space> <plug>(emmet-expand-abbr)
+    vmap <c-space> <plug>(emmet-expand-abbr)
   else
     " These mean the same as above, but they work in the terminal
     nmap <c-@> <plug>(emmet-expand-abbr)
