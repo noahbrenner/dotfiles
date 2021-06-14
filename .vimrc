@@ -5,6 +5,19 @@ setglobal nocompatible
 " finish
 " Also take a look at: https://til.hashrocket.com/posts/c265634512-vim-startup-time-profiling
 
+if has('vim_starting') && argv(0) =~ '/dev/shm/'
+  " Don't leak data when editing a file in shared memory
+  set nobackup
+  set nowritebackup
+  set noswapfile
+  set viminfo=
+  set noundofile
+
+  " Set minimal settings and exit early
+  inoremap jk <esc>
+  finish
+endif
+
 let $MYVIMHOME=fnameescape(expand('<sfile>:p:h'))
 
 " Alternates from: https://github.com/justinmk/config/blob/master/.vimrc
