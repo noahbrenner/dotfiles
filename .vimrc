@@ -485,6 +485,11 @@ digraphs h. 7717 " LATIN SMALL LETTER H WITH DOT BELOW
 " Completely clear the content saved in a named register
 command! -nargs=1 ClearRegister call setreg('<args>', [])
 
+" Copy curent file name/path to clipboard
+command! YankPathRelative let @* = expand('%')
+command! YankPathFull let @* = expand('%:p')
+command! YankFilename let @* = expand('%:h')
+
 augroup filetype_common_settings
   autocmd!
 
