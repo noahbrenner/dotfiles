@@ -127,6 +127,30 @@ Plug 'editorconfig/editorconfig-vim'
   let g:EditorConfig_exclude_patterns = ['.*[\\/]\.git[\\/].*']
 " TODO https://github.com/tpope/vim-eunuch " Convenient shell wrappers like :Rename
 Plug 'tpope/vim-dispatch'
+Plug 'preservim/nerdtree'
+  let g:NERDTreeMinimalMenu = 1
+  let g:NERDTreeMinimalUI = 1
+  let g:NERDTreeAutoDeleteBuffer = 1
+  let g:NERDTreeWinSize = 50
+  autocmd! VimEnter * call g:NERDTreeAddPathFilter('FilterCompilationTargets')
+  function! FilterCompilationTargets(params)
+    let l:path = a:params['path']
+    let l:name = l:path['pathSegments'][-1]
+
+    if !l:path['isDirectory']
+      if l:name =~? '\.js$'
+        let l:basename = slice(l:name, 0, -strlen('.js'))
+        return filereadable(l:basename .. '.ts')
+      elseif l:name =~? '\.d\.ts$'
+        let l:basename = slice(l:name, 0, -strlen('.d.ts'))
+        return filereadable(l:basename .. '.ts')
+      endif
+    endif
+
+    return 0
+  endfunction
+  nnoremap <Leader>tf :NERDTreeFind<cr>
+  nnoremap <Leader>tt :NERDTreeToggle<cr>
 
 Plug 'nathanaelkane/vim-indent-guides'
   let g:indent_guides_color_change_percent = 25
