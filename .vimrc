@@ -478,6 +478,10 @@ nnoremap <silent> `l :setlocal list!<cr>
 inoremap <m-o> <c-x><c-o>
 inoremap <c-f> <c-x><c-f>
 
+" Custom digraphs
+digraphs H. 7716 " LATIN CAPITAL LETTER H WITH DOT BELOW
+digraphs h. 7717 " LATIN SMALL LETTER H WITH DOT BELOW
+
 " Completely clear the content saved in a named register
 command! -nargs=1 ClearRegister call setreg('<args>', [])
 
