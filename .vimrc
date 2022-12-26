@@ -376,6 +376,7 @@ if has('vim_starting')
   highlight LineNr guifg=Red guibg=#202020
   highlight Special guifg=#2222ff
   highlight SpellBad ctermbg=DarkRed
+  highlight CursorLine term=underline cterm=underline gui=underline guibg=NONE
   " Switch the default coloring for active vs. inactive status lines
   highlight StatusLine ctermfg=NONE ctermbg=NONE cterm=reverse
   highlight StatusLineNC cterm=NONE ctermfg=11 ctermbg=12
