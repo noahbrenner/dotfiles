@@ -216,21 +216,6 @@ Plug 'HerringtonDarkholme/yats.vim', {'for': ['typescript', 'typescript.tsx']}
 " SYNTAX CHECKERS:
 let g:ale_completion_enabled = 1
 Plug 'w0rp/ale'
-  let g:ale_linters = {
-        \ 'javascript': ['eslint', 'tsserver'],
-        \ 'markdown': [],
-        \ 'python': ['pycodestyle', 'flake8', 'pyls'],
-        \ }
-  let g:ale_fixers = {
-        \ 'css': ['prettier'],
-        \ 'html': ['prettier'],
-        \ 'javascript': ['prettier'],
-        \ 'json': ['prettier'],
-        \ 'markdown': ['prettier'],
-        \ 'typescript': ['prettier'],
-        \ 'typescriptreact': ['prettier'],
-        \ }
-
   " Configure message formats
   let g:ale_echo_msg_format = "[%linter%] %code: %%s"
 
@@ -257,6 +242,54 @@ call plug#end()
 if exists('s:is_fresh_plug_install')
   PlugInstall
   unlet s:is_fresh_plug_install
+endif
+
+" Configure linters/fixers for ALE plugin
+let s:ale_linters_base = {
+        \ 'markdown': [],
+        \ 'python': ['pycodestyle', 'flake8', 'pyls'],
+        \ }
+
+function! AleDeno()
+  let g:ale_linters = extend({
+        \ 'javascript': ['deno'],
+        \ 'typescript': ['deno'],
+        \ 'typescriptreact': ['deno'],
+        \ }, s:ale_linters_base)
+
+  " `deno fmt` supports json and markdown, but ALE doesn't provide the option
+  let g:ale_fixers = {
+        \ 'javascript': ['deno'],
+        \ 'typescript': ['deno'],
+        \ 'typescriptreact': ['deno'],
+        \ }
+endfunction
+
+function! AleNode()
+  let g:ale_linters = extend({
+        \ 'javascript': ['eslint', 'tsserver'],
+        \ 'typescript': ['eslint', 'tsserver'],
+        \ 'typescriptreact': ['eslint', 'tsserver'],
+        \ }, s:ale_linters_base)
+
+  let g:ale_fixers = {
+        \ 'css': ['prettier'],
+        \ 'html': ['prettier'],
+        \ 'javascript': ['prettier'],
+        \ 'json': ['prettier'],
+        \ 'markdown': ['prettier'],
+        \ 'typescript': ['prettier'],
+        \ 'typescriptreact': ['prettier'],
+        \ }
+endfunction
+
+if has('vim_starting')
+  " Search for node_modules in the current directory or ancestor directories
+  if finddir("node_modules", $"{$PWD};") !=# ""
+    call AleNode()
+  else
+    call AleDeno()
+  endif
 endif
 
 if has('vim_starting')
