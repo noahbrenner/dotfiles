@@ -163,8 +163,8 @@ Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'glench/vim-jinja2-syntax', {'for': ['jinja.html', 'jinja']} " Also for Nunjucks
 Plug 'gisraptor/vim-lilypond-integrator', {'for': 'lilypond'}
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'vim-pandoc/vim-pandoc', {'for': 'pandoc'}
-Plug 'vim-pandoc/vim-pandoc-syntax', {'for': 'pandoc'}
+" Plug 'vim-pandoc/vim-pandoc', {'for': 'pandoc'}
+" Plug 'vim-pandoc/vim-pandoc-syntax', {'for': 'pandoc'}
 Plug 'digitaltoad/vim-pug', {'for': 'pug'}
 
 Plug 'mattn/emmet-vim' " Expand abbreviations (mainly HTML)
