@@ -215,6 +215,9 @@ Plug 'HerringtonDarkholme/yats.vim', {'for': ['typescript', 'typescript.tsx']}
 
 " SYNTAX CHECKERS:
 let g:ale_completion_enabled = 1
+let g:ale_floating_preview = 1
+let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
+let g:ale_virtualtext_cursor = 'disabled'
 Plug 'w0rp/ale'
   " Configure message formats
   let g:ale_echo_msg_format = "[%linter%] %code: %%s"
